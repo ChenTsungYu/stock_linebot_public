@@ -1,4 +1,4 @@
-# 專題__股票機器人
+# 股票&外匯機器人
 ## Introduction:
 使用python搭配flask框架，透過Heroku免費雲端主機串接LineBot，資料庫使用MongoDB 
 ## Third-part Library：
