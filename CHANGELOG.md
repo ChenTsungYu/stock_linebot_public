@@ -42,3 +42,28 @@ Build linebot and deploy on Heroku
 * 股價走勢圖
 ### Fixed
 * 解決 pyplot 上傳的圖片顯示中文亂碼問題
+## Nov. 12, 2019
+### New Features
+* 理財教學
+* 理財知識
+* 快樂學理財
+* 理財新書榜、暢銷榜
+* 股票、外匯到價提醒
+* 個股、外匯新聞
+* 產業分析文章
+
+## Dec. 12, 2019
+### New Features
+* K線圖
+* 三大法人買賣超
+* 匯率換算
+* 基本面分析
+### Fixed
+* 籌碼面
+* 技術面: RSI、MACD、BBand
+
+## Dec. 20, 2019
+### New Features
+* 股票健診
+
+
