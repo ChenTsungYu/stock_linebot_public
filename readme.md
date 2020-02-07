@@ -18,3 +18,4 @@ heroku環境需另外配置。
 [Emoji for line](https://developers.line.biz/media/messaging-api/emoji-list.pdf)
 [Emoji](https://apps.timwhitlock.info/emoji/tables/unicode)
 **注意：Emoji 需以`Unicode`的形式編碼**
+[Selenium在Heroku上的配置- 官方說明](https://www.andressevilla.com/running-chromedriver-with-python-selenium-on-heroku/)
