@@ -19,3 +19,4 @@ heroku環境需另外配置。
 * [Emoji](https://apps.timwhitlock.info/emoji/tables/unicode)
 * **注意：Emoji 需以`Unicode`的形式編碼**
 * [Selenium在Heroku上的配置- 官方說明](https://www.andressevilla.com/running-chromedriver-with-python-selenium-on-heroku/)
+* [Heroku的環境安裝talib](https://elements.heroku.com/buildpacks/numrut/heroku-buildpack-python-talib)
