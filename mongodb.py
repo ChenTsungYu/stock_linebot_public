@@ -50,10 +50,6 @@ def query_stock(user_name, stockNumber):
     if dataList == None:
         print("none")
     return dataList
-# userID = "idhere"
-# user_name = 'tomChen'
-# stockNumber = "202"
-# print(query_stock(user_name, stockNumber))
 
 #----------------------------更新暫存的股票名稱--------------------------
 def update_my_stock(user_name,  stockNumber, condition , target_price):
@@ -62,8 +58,6 @@ def update_my_stock(user_name,  stockNumber, condition , target_price):
     collect.update_many({"favorite_stock": stockNumber }, {'$set': {'condition':condition , "price": target_price}})
     content = "股票"+ stockNumber +"更新成功"
     return content
-    
-# update_my_stock('tom', 123, 2420)
 
 # ----------------  秀出使用者的股票清單       ----------------
 def show_my_stock(userID, user_name, msg):
@@ -75,11 +69,6 @@ def show_my_stock(userID, user_name, msg):
     for i in range(len(dataList)):
         content += stockprice.getprice(dataList[i]["favorite_stock"], msg)
     return content
-
-# userID = "idhere"
-# user_name = 'tomChen'
-
-# print(show_my_stock(userID, user_name))
 #   -----------    新增使用者的股票       -------------
 def write_my_stock(userID, user_name, stockNumber, condition , target_price):
     db=constructor_stock()
@@ -99,7 +88,6 @@ def write_my_stock(userID, user_name, stockNumber, condition , target_price):
             })
         return stockNumber + "已新增至您的股票清單"
         
-# print(write_my_stock("idhere", 'tomChen', "2002", "<", "70"))
 # ----------------  刪除使用者特定的股票       ----------------
 def delete_my_stock(user_name, stockNumber):
     db = constructor_stock()
@@ -107,9 +95,6 @@ def delete_my_stock(user_name, stockNumber):
     collect.delete_one({'favorite_stock': stockNumber})
     return stockNumber + "刪除成功"
 
-# user_name = 'tomChen'
-# stockNumber = "2002"
-# delete_my_stock(user_name, stockNumber)
 # ----------------  刪除使用者股票清單內所有的股票       ----------------
 def delete_my_allstock(user_name, userID):
     db = constructor_stock()
@@ -130,10 +115,6 @@ def show_stock_setting(user_name, userID):
         content += dataList[i]["favorite_stock"] + ' ' + dataList[i]["condition"] + ' ' + dataList[i]["price"] + "\n"
     return content
 
-# user_name = 'tomChen'
-# userID = "idhere"
-# print(show_user_stock(user_name, userID))
-
 #----------------------------  更新匯率清單的匯率  --------------------------
 def update_my_currency(user_name, currency, condition , target_price):
     db=constructor_currency()
@@ -141,13 +122,6 @@ def update_my_currency(user_name, currency, condition , target_price):
     collect.update_many({"favorite_currency": currency }, {'$set': {'condition':condition , "price": target_price}})
     content = currency_list[currency] +"更新成功"
     return content
-
-# user_name = 'tomChen'
-# userID = "idhere"
-# currency = "USD"
-# condition = "<"
-# target_price = "30"
-# update_my_currency(user_name, currency, condition , target_price)
 
 #----------------------------  新增匯率至匯率清單  --------------------------
 def write_my_currency(userID , user_name, currency, condition, target_price):
@@ -169,13 +143,6 @@ def write_my_currency(userID , user_name, currency, condition, target_price):
             })
         return currency_list[currency] + "已新增至您的外幣清單"
 
-# user_name = 'tomChen'
-# userID = "idhere"
-# currency = "USD"
-# condition = "<"
-# target_price = "30"
-# print(write_my_currency(userID , user_name, currency, condition, target_price))
-
 #----------------------------  查詢匯率清單的匯率(文字)  --------------------------
 def show_my_currency(userID, user_name):
     db = constructor_currency()
@@ -187,10 +154,6 @@ def show_my_currency(userID, user_name):
         content += EXRate.showCurrency(dataList[i]["favorite_currency"]) 
     return content
 
-# user_name = 'tomChen'
-# userID = "idhere"
-# print(show_my_currency(userID, user_name))
-
 
 # ----------------  刪除使用者清單特定的匯率       ----------------
 def delete_my_currency(user_name, currency):
@@ -199,9 +162,6 @@ def delete_my_currency(user_name, currency):
     collect.delete_one({'favorite_currency': currency})
     return currency_list[currency] + "刪除成功"
 
-# user_name = 'tomChen'
-# currency = "USD"
-# print(delete_my_currency(user_name, currency))
 
 #----------------------------  刪除匯率清單全部匯率  --------------------------
 def delete_my_allcurrency(user_name, userID):
@@ -209,10 +169,6 @@ def delete_my_allcurrency(user_name, userID):
     collect = db[user_name]
     collect.delete_many({'userID': userID})
     return "外幣清單已清空"
-
-# user_name = 'tomChen'
-# userID = "idhere"
-# print(delete_my_allcurrency(user_name, userID))
 
 # ----------------  查詢使用者的匯率設定條件       ----------------
 def show_currency_setting(user_name, userID):
@@ -224,30 +180,3 @@ def show_currency_setting(user_name, userID):
     for i in range(len(dataList)):
         content += dataList[i]["favorite_currency"] + ' ' + dataList[i]["condition"] + ' ' + dataList[i]["price"] + "\n"
     return content
-
-# user_name = 'tomChen'
-# userID = "idhere"
-# print(show_currency_setting(user_name, userID))
-
-#----------------------------  查詢匯率清單的匯率走勢圖  --------------------------
-# def show_my_currency_cashtrend(userID, user_name):
-#     db = constructor_currency()
-#     collect = db[user_name]
-#     dataList = list(collect.find({"userID": userID}))
-#     if dataList == []: return "您的外幣清單為空，無法繪製匯率走勢，請透過指令新增外幣至清單中"
-#     content = ""
-#     for i in range(len(dataList)):
-#         content += EXRate.cash_exrate_sixMonth(dataList[i]["favorite_currency"]) 
-#     return content
-
-# user_name = 'tomChen'
-# userID = "idhere"
-# print(show_my_currency_cashtrend(userID, user_name))
-
-#----------------------------抓暫存的股票名稱--------------------------
-# def cache_temporary_stock(targetStock):  
-#     db=constructor_stock()
-#     collect = db['member']
-#     # collect = db['mystock']
-#     # cel=list(collect.find({"stock": targetStock}))
-#     # cel = list(collect.find({"data": 'favorite_stock'}))
