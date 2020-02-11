@@ -55,27 +55,8 @@ def show_pic(msg):
     plt.close() # 殺掉記憶體中的圖片
     return Imgur.showImgur("比較")
 
-# msg = '比較股票2330/2002/2317'
-# print(show_pic(msg))
 # ======================
 ''' 
 當x和y的座標都小於0，代表那天兩張股票都是跌，大於0則漲
 當x和y的值越相近時，則閃點圖會越趨向一直線。代表兩個股票越正相關
 '''
-#多股票收益率(閃點圖)
-# def show_return():
-#     start = datetime.datetime(2015,1,5)
-#     campany = ['2492.TW', '2330.TW', '3045.TW', '2412.TW', '2409.TW']
-#     df_stock = pdr.DataReader(campany, 'yahoo', start=start)
-#     adjClose = df_stock['Adj Close']
-#     # adjClose.plot()
-#     plt.rcParams['axes.unicode_minus']=False
-#     adjClose_pct = adjClose.pct_change()
-#     # sns.jointplot('2412.TW','3045.TW',adjClose_pct, kind="scatter")
-#     # # sns.pairplot(adjClose_pct.dropna())
-#     plt.savefig('return.png') #存檔
-#     plt.show()
-
-# show_return()
-
-
