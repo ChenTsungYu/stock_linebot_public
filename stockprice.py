@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ''' 
 即時股價
 '''
@@ -53,8 +54,7 @@ def getprice(stockNumber, msg):
     if  msg[0] == "#": content += "--------------\n需要更詳細的資訊，可以點選以下選項進一步查詢唷" + emoji_downinfo
     else: content += '\n' 
     return content
-# stockNumber = '2330'
-# print(getprice(stockNumber, "我的股票"))
+
 # --------- 畫近一年股價走勢圖
 def stock_trend(stockNumber, msg):
     stock_name = get_stock_name(stockNumber)
@@ -74,11 +74,8 @@ def stock_trend(stockNumber, msg):
     plt.legend(fontsize=14, prop=font_path)
     plt.savefig(msg + '.png') #存檔
     plt.show()
-    plt.close() # 殺掉記憶體中的圖片
+    plt.close() 
     return Imgur.showImgur(msg)
-# msg = "趨勢圖"
-# stockNumber = '2330'
-# stock_trend(stockNumber, msg)
 
 #股票收益率: 代表股票在一天交易中的價值變化百分比
 def show_return(stockNumber, msg):
@@ -100,9 +97,7 @@ def show_return(stockNumber, msg):
     plt.savefig(msg+'.png') #存檔
     plt.show()
     return Imgur.showImgur(msg)
-# msg = "收益率"
-# stockNumber = '2330'
-# print(show_return(stockNumber, msg))
+
 # --------- 畫  股價震盪圖
 def show_fluctuation(stockNumber, msg):
     stock_name = get_stock_name(stockNumber)
@@ -123,12 +118,5 @@ def show_fluctuation(stockNumber, msg):
     plt.legend(fontsize=14, prop= font_path)
     plt.savefig(msg + '.png') #存檔
     plt.show()
-    plt.close() # 殺掉記憶體中的圖片
+    plt.close() 
     return Imgur.showImgur(msg)
-
-# stockNumber = '2330'
-
-# stockNumber1 = '2330'
-# msg1 = "2330震盪圖"
-# show_fluctuation(stockNumber1, msg1)
-# print(stock['info']['name'])
