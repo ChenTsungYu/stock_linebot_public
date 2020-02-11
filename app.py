@@ -2,19 +2,8 @@ import re
 from pymongo import MongoClient
 import pymongo
 import urllib.parse
-import datetime
-import time
-import requests
-import json
 import EXRate
 import news
-import imgurpython
-from imgurpython import ImgurClient
-import matplotlib.pyplot as plt
-import pandas as pd
-from bs4 import BeautifulSoup
-import schedule
-import mongodb
 import stockprice
 import Institutional_Investors
 import stock_compare
