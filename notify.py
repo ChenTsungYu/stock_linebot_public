@@ -17,15 +17,6 @@ yourID='Your User ID'
 # Authentication Database認證資料庫
 stockDB='mystock'
 currencyDB = 'mycurrency'
-
-# today = datetime.date.today()
-# oneday=datetime.timedelta(days=1)
-# if today.weekday()==6:
-#     yesterday=today-oneday-oneday
-# elif today.weekday()==0:
-#     yesterday=today-oneday-oneday-oneday
-# else:
-#     yesterday=today-oneday
 currency_list = { 
     "USD" : "美元",
     "JPY": "日圓",
@@ -66,13 +57,13 @@ def showCurrency(msg):
     # 當下時間
     now_time = str(currency[0])
     # 銀行現金買入價格
-    buying_cash = "無資料" if  currency[1] == '-' else str(float(currency[1])) # if-else簡寫
+    buying_cash = "無資料" if  currency[1] == '-' else str(float(currency[1]))
     # 銀行現金賣出價格
-    sold_cash = "無資料" if  currency[2] == '-' else str(float(currency[2])) # if-else簡寫
+    sold_cash = "無資料" if  currency[2] == '-' else str(float(currency[2])) 
     # 銀行即期買入價格
-    buying_spot = "無資料" if  currency[3] == '-' else str(float(currency[3])) # if-else簡寫
+    buying_spot = "無資料" if  currency[3] == '-' else str(float(currency[3]))
     # 銀行即期賣出價格
-    sold_spot = "無資料" if  currency[4] == '-' else str(float(currency[4])) # if-else簡寫
+    sold_spot = "無資料" if  currency[4] == '-' else str(float(currency[4])) 
 
     content += currency_name + "最新掛牌時間為: " + now_time + '\n ---------- \n 現金買入價格: ' + buying_cash + '\n 現金賣出價格: ' + str(sold_cash) + '\n 即期買入價格: ' + buying_spot + '\n 即期賣出價格: '  +  sold_spot + '\n \n'
     return content
