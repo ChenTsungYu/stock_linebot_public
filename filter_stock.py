@@ -97,9 +97,6 @@ def mine_stock(stockNumber):
         color_list.append(not_pass_color)
     content = str(int(count/6 * 100)) + "%"
     return pass_list, content, str(count), color_list
-
-# stockNumber='2330'
-# print(mine_stock(stockNumber))
 # =================定存股===================
 def dinchun(stockNumber):
     url='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=2'
@@ -167,7 +164,7 @@ def dinchun(stockNumber):
         color_list.append(not_pass_color)
     content =str(round(x/5*100)) + '%'
     return pass_list, content, str(x), color_list
-# print(dinchun("2330"))
+
 # =================成長股===================
 def growth_stock(stockNumber):
     url='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=3'
@@ -224,9 +221,6 @@ def growth_stock(stockNumber):
     content = str(round(x/5*100)) + '%'
     
     return pass_list, content, str(x), color_list
-
-# stockNumber='2317'
-# print(growth_stock(stockNumber))
 # =================便宜股===================
 def cheap_stock(stockNumber):
     url='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=6'
@@ -261,5 +255,3 @@ def cheap_stock(stockNumber):
         color_list.append(not_pass_color)
     content = str(round(x/3*100)) + '%'
     return pass_list, content, str(x), color_list
-# stockNumber='2330'
-# print(cheap_stock(stockNumber))
