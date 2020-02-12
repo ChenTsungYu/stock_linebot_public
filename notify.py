@@ -161,19 +161,5 @@ def job():
             # print(dataList[i][k])
             look_stock_price(dataList[i][k]['favorite_stock'], dataList[i][k]['condition'], dataList[i][k]['price'], dataList[i][k]['userID'])
 
-# job()
-
 # second_5_j = schedule.every(5).seconds.do(job)
 # second_5_j = schedule.every().day.at("22:04").do(job)  # 特定時間推播
-
-# # 無窮迴圈
-# while True: 
-#     schedule.run_pending()
-#     time.sleep(1)
-
-
-# 列出工作目錄
-# schedule.jocondition
-
-# 列出工作目錄
-#schedule.clear()
