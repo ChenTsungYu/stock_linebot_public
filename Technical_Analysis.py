@@ -2,7 +2,6 @@ import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 import talib
-# from talib import *
 from talib import abstract
 import Imgur
 import matplotlib.pyplot as plt
@@ -40,18 +39,6 @@ def MACD_pic(stockNumber, msg):
     plt.close()
     return Imgur.showImgur(msg)
 
-    # x=len(abstract.MACD(df_x))-1
-     
-    # for i in range(33,x):
-    #     if (abstract.MACD(df_x)["macd"][i]<=abstract.MACD(df_x)["macdsignal"][i] and abstract.MACD(df_x)["macd"][i+1]>=abstract.MACD(df_x)["macdsignal"][i+1]):
-    #         print("MACD金叉日期：", jj["Date"][i])
-    #     if (abstract.MACD(df_x)["macd"][i]>=abstract.MACD(df_x)["macdsignal"][i] and abstract.MACD(df_x)["macd"][i+1]<=abstract.MACD(df_x)["macdsignal"][i+1]):
-    #         print("MACD死叉日期：", jj["Date"][i])
-
-# stockNumber = "2330"
-# msg = "MACD"
-# print(MACD_pic(stockNumber, msg))
-
 # ===================================
 # KD指標
 def RSI_pic(stockNumber, msg):
@@ -67,9 +54,6 @@ def RSI_pic(stockNumber, msg):
     plt.close()
     return Imgur.showImgur(msg)
 
-# stockNumber = "2330"
-# msg = "RSI"
-# print(RSI_pic(stockNumber, msg))
 # ===================================
 # BBand分析
 def BBANDS_pic(stockNumber, msg):
@@ -84,18 +68,4 @@ def BBANDS_pic(stockNumber, msg):
     plt.savefig(msg + ".png")
     plt.close()
     return Imgur.showImgur(msg)
-
-# stockNumber = "2330"
-# msg = "BBANDS"
-# print(BBANDS_pic(stockNumber, msg))
-'''
-df_x=pdr.DataReader(bb,'yahoo')
-STOCH = abstract.STOCH(df_x).plot()
-plt.xlabel("date")
-plt.ylabel("KD")
-plt.show(STOCH)
-abstract.STOCH(df_x).tail(10)
-abstract.RSI(df_x).tail(10)
-abstract.BBANDS(df_x).tail(10)
-'''
 
