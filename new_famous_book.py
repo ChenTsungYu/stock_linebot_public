@@ -22,9 +22,6 @@ def getnewbook():
         url_list.append(i.select('a')[0]['href'])
         if rank == 3:
             return title_list, url_list
-# content = getnewbook()
-# title_list = content[0]
-# print("新書榜: ", arr)
 
 def getfamousbook():
     url='https://www.books.com.tw/web/sys_saletopb/books/02/?loc=P_0002_003'
@@ -44,5 +41,3 @@ def getfamousbook():
         url_list.append(i.select('a')[0]['href'])
         if rank == 3:
             return title_list, url_list
-
-# print("熱銷榜: " ,getfamousbook())
