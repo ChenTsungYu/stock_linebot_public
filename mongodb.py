@@ -101,9 +101,7 @@ def delete_my_allstock(user_name, userID):
     collect = db[user_name]
     collect.delete_many({'userID': userID})
     return "全部股票刪除成功"
-# user_name = "宗裕"
-# userID = "U3b9a97d1bb05b88d5062b6fbd1534c11"
-# delete_my_allstock(user_name, userID)
+
 # ----------------  秀出使用者的股票條件       ----------------
 def show_stock_setting(user_name, userID):
     db = constructor_stock()
