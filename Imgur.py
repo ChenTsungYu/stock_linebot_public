@@ -36,6 +36,3 @@ def showImgur(fileName):
             
         
         return imgurl
-
-# fileName = "233012stock trend"
-# showImgur(fileName)
