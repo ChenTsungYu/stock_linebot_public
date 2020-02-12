@@ -20,11 +20,6 @@ def get_single_stock_news(stockNumber):
         title_list.append(title)
         url_list.append(trs.get("href"))
     return title_list, url_list
-
-# stockNumber = '2002'
-# arr = get_single_stock_news(stockNumber)
-# print("股市: ", arr[0])
-
 # 鉅亨網新聞(外幣匯率新聞)
 def anue_forex_news():
     url = requests.get('https://news.cnyes.com/news/cat/forex')
@@ -39,8 +34,6 @@ def anue_forex_news():
         title_list.append(title)
         # content += title1 +  '\n'  +'https://news.cnyes.com' +herf1 + '\n ------ \n'
     return title_list, url_list
-# nrr = anue_forex_news()
-# print("外幣: ", nrr[0])
 
 #鉅亨網新聞(頭條新聞)
 def anue_headline_news():
@@ -53,7 +46,6 @@ def anue_headline_news():
         title2 = table2.get('title')
         content += title2 +  '\n'  +'https://news.cnyes.com' +herf2 + '\n ------ \n'
     return content
-# print(anue_headline_news())
 
 #每周財經大事新聞
 def weekly_news():
@@ -100,5 +92,3 @@ def anue_news():
         content += title2 +  '\n' +herf2 + '\n ------ \n'
         # print(title2)
     return content
-
-
