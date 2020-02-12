@@ -89,6 +89,3 @@ def draw_kchart(stockNumber):
     plt.show()
     plt.close()
     return Imgur.showImgur("Kchrat")
-
-# stockNumber = "2002"
-# print(draw_kchart(stockNumber))
