@@ -15,8 +15,8 @@ import Imgur
 import time
 # from matplotlib.ticker import FuncFormatter
 chinese_font = matplotlib.font_manager.FontProperties(fname='msjh.ttf') # 引入同個資料夾下支援中文字檔
-chinese_title = matplotlib.font_manager.FontProperties(fname='msjh.ttf', size=24) # 引入同個資料夾下支援中文字檔
-chinese_subtitle = matplotlib.font_manager.FontProperties(fname='msjh.ttf', size=20) # 引入同個資料夾下支援中文字檔
+chinese_title = matplotlib.font_manager.FontProperties(fname='msjh.ttf', size=24) 
+chinese_subtitle = matplotlib.font_manager.FontProperties(fname='msjh.ttf', size=20) 
 
 def get_stock_name(stockNumber):
     try:
@@ -60,9 +60,7 @@ def institutional_investors_pic(stockNumber):
     plt.show()
     plt.close()
     return Imgur.showImgur("法人")
-
-# print(institutional_investors_pic("2330"))
-
+# 三大法人買賣超(純文字敘述)
 def institutional_investors(stockNumber):
     time.sleep(2)
     # today=datetime.date.today()
@@ -87,11 +85,3 @@ def institutional_investors(stockNumber):
             content += "自營商買賣超張數(避險): " + str(round(int(df["自營商買賣超股數(避險)"][i].replace(',',''))/1000))+"張\n\n"
             content += "三大法人買賣超張數:" + str(round(int(df["三大法人買賣超股數"][i].replace(',',''))/1000))+"張\n"
             return content
-
-# stockNumber = "2330"
-# print(institutional_investors(stockNumber)) 
-
-# stocknumber = '2891'
-# msg = '2891'
-# print(institutional_investors_pic(stocknumber, msg))
-# print(institutional_investors_pic(stocknumber, msg))
