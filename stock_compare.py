@@ -1,4 +1,7 @@
 '''
+Created by Tsung Yu on 17/03/2020.
+Copyright © 2020 Tsung Yu. All rights reserved.
+
 用於比較兩檔以上股票的走勢 
 參考相關文章
 https://ithelp.ithome.com.tw/articles/10205113?source=post_page-----d9ef82dc4175----------------------
