@@ -56,7 +56,7 @@ def update_my_stock(user_name,  stockNumber, condition , target_price):
     db=constructor_stock()
     collect = db[user_name]
     collect.update_many({"favorite_stock": stockNumber }, {'$set': {'condition':condition , "price": target_price}})
-    content = "股票"+ stockNumber +"更新成功"
+    content = f"股票{stockNumber}更新成功"
     return content
 
 # ----------------  秀出使用者的股票清單       ----------------
@@ -86,7 +86,7 @@ def write_my_stock(userID, user_name, stockNumber, condition , target_price):
                 "tag": "stock",
                 "date_info": datetime.datetime.now()
             })
-        return stockNumber + "已新增至您的股票清單"
+        return f"{stockNumber}已新增至您的股票清單"
         
 # ----------------  刪除使用者特定的股票       ----------------
 def delete_my_stock(user_name, stockNumber):
@@ -110,7 +110,7 @@ def show_stock_setting(user_name, userID):
     if dataList == []: return "您的股票清單為空，請透過指令新增股票至清單中"
     content = "您清單中的選股條件為: \n"
     for i in range(len(dataList)):
-        content += dataList[i]["favorite_stock"] + ' ' + dataList[i]["condition"] + ' ' + dataList[i]["price"] + "\n"
+        content += f'{dataList[i]["favorite_stock"]} {dataList[i]["condition"]} {dataList[i]["price"]}\n'
     return content
 
 #----------------------------  更新匯率清單的匯率  --------------------------
@@ -118,8 +118,7 @@ def update_my_currency(user_name, currency, condition , target_price):
     db=constructor_currency()
     collect = db[user_name]
     collect.update_many({"favorite_currency": currency }, {'$set': {'condition':condition , "price": target_price}})
-    content = currency_list[currency] +"更新成功"
-    return content
+    return f"{currency_list[currency]}更新成功"
 
 #----------------------------  新增匯率至匯率清單  --------------------------
 def write_my_currency(userID , user_name, currency, condition, target_price):
@@ -127,9 +126,7 @@ def write_my_currency(userID , user_name, currency, condition, target_price):
     collect = db[user_name]
     is_exit = collect.find_one({"favorite_currency": currency})
     content = ""
-    if is_exit != None :
-        content = update_my_currency(user_name, currency, condition , target_price)
-        return content
+    if is_exit != None : return update_my_currency(user_name, currency, condition , target_price)
     else:
         collect.insert_one({
                 "userID": userID,
@@ -139,7 +136,7 @@ def write_my_currency(userID , user_name, currency, condition, target_price):
                 "tag": "currency",
                 "date_info": datetime.datetime.now()
             })
-        return currency_list[currency] + "已新增至您的外幣清單"
+        return f"{currency_list[currency]}已新增至您的外幣清單"
 
 #----------------------------  查詢匯率清單的匯率(文字)  --------------------------
 def show_my_currency(userID, user_name):
@@ -176,5 +173,5 @@ def show_currency_setting(user_name, userID):
     if dataList == []: return "您的外幣清單為空，請透過指令新增外幣至清單中"
     content = "您清單中外幣篩選條件為: \n"
     for i in range(len(dataList)):
-        content += dataList[i]["favorite_currency"] + ' ' + dataList[i]["condition"] + ' ' + dataList[i]["price"] + "\n"
+        content += f'{dataList[i]["favorite_currency"]} {dataList[i]["condition"]} {dataList[i]["price"]}\n'
     return content
