@@ -21,7 +21,7 @@ emoji_downinfo = u'\U0001F60A'
 
 def get_stock_name(stockNumber):
     try:
-        url = 'https://tw.stock.yahoo.com/q/q?s=' + stockNumber
+        url = f'https://tw.stock.yahoo.com/q/q?s={stockNumber}'
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html.parser')
         table = soup.find_all(text='成交')[0].parent.parent.parent
@@ -49,9 +49,9 @@ def getprice(stockNumber, msg):
     price_five = stock.tail(5)["Close"] # 近五日之收盤價
     stockAverage = str('%.2f ' % pd.to_numeric(price_five).mean())  # 計算近五日平均價格
     stockSTD = str('%.2f ' % pd.to_numeric(price_five).std())   # 計算近五日標準差  
-    content += "回報編號"  + stock_name + '的股價' + emoji_upinfo + '\n--------------\n日期: ' + str(date) + '\n' + emoji_midinfo + '最新收盤價: ' + str(price) + '\n' + emoji_midinfo + '開盤價: ' + open_price +'\n' + emoji_midinfo +'最高價: ' \
-    + high_price + '\n' + emoji_midinfo + '最低價: ' + low_price + '\n' + emoji_midinfo + '價差: '+ spread_price + '漲跌幅: '+ spread_ratio + '\n' + emoji_midinfo +'近五日平均價格: ' + stockAverage + '\n' + emoji_midinfo +'近五日標準差: ' + stockSTD + "\n"
-    if  msg[0] == "#": content += "--------------\n需要更詳細的資訊，可以點選以下選項進一步查詢唷" + emoji_downinfo
+    content += f"回報編號{stock_name}的股價{emoji_upinfo}\n--------------\n日期: {date}\n{emoji_midinfo}最新收盤價: {price}\n{emoji_midinfo}開盤價{open_price}\n{emoji_midinfo}最高價: \
+    {high_price}\n{emoji_midinfo}最低價: {low_price}\n{emoji_midinfo}價差: {spread_price} 漲跌幅: {spread_ratio}\n{emoji_midinfo}近五日平均價格: {stockAverage}\n{emoji_midinfo}近五日標準差: {stockSTD}\n"
+    if msg[0] == "#": content += f"--------------\n需要更詳細的資訊，可以點選以下選項進一步查詢唷{emoji_downinfo}"
     else: content += '\n' 
     return content
 
