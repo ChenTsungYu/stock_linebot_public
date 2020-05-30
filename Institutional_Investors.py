@@ -20,7 +20,7 @@ chinese_subtitle = matplotlib.font_manager.FontProperties(fname='msjh.ttf', size
 
 def get_stock_name(stockNumber):
     try:
-        url = 'https://tw.stock.yahoo.com/q/q?s=' + stockNumber
+        url = f'https://tw.stock.yahoo.com/q/q?s={stockNumber}'
         page = requests.get(url)
         soup = BeautifulSoup(page.content, 'html.parser')
         table = soup.find_all(text='成交')[0].parent.parent.parent
@@ -34,8 +34,8 @@ def get_stock_name(stockNumber):
 def institutional_investors_pic(stockNumber):
     stock_name = get_stock_name(stockNumber)
     if stock_name == "no": return "股票代碼錯誤!"
-    mn=pd.read_html('https://www.cnyes.com/twstock/Institutional/' + stockNumber +'.htm')
-    st=pd.read_html('https://www.cnyes.com/twstock/ps_historyprice/'+ stockNumber +'.htm')
+    mn=pd.read_html(f'https://www.cnyes.com/twstock/Institutional/{stockNumber}.htm')
+    st=pd.read_html(f'https://www.cnyes.com/twstock/ps_historyprice/{stockNumber}.htm')
     mn=mn[0]
     #fig=plt.figure(24,20)
     rg=len(mn['合計'])-1
