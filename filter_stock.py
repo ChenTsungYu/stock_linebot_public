@@ -35,7 +35,7 @@ def mine_stock(stockNumber):
     pass_list = [] # 存放是否通過
     color_list = [] # 存放是否通過的顏色
     c = 0
-    for i in free_cash: new.append(float(i.replace(",", ""))) 
+    new = [float(i.replace(",", "")) for i in free_cash]
     for k in new:
         if k > 0: c += 1
     if c > 3: 
@@ -58,9 +58,7 @@ def mine_stock(stockNumber):
     url2 ='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=3&st=7'
     of=pandas.read_html(url1)
     turnover_page = pandas.read_html(url2)
-    cash_ratio = []
-    for i in range(0, 20):
-        cash_ratio.append(float(of[0]['營業現金流對淨利比'][i].replace(',','').strip('%')))
+    cash_ratio = [float(of[0]['營業現金流對淨利比'][i].replace(',','').strip('%')) for i in range(0, 20)]
     c = 0
     for k in range(4, 24, 4):
         if round(sum(cash_ratio[k-4:k]) / 5, 1) > 100: c += 1
@@ -95,7 +93,7 @@ def mine_stock(stockNumber):
     else: 
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
-    content = str(int(count/6 * 100)) + "%"
+    content = f"{int(count/6 * 100)}%"
     return pass_list, content, str(count), color_list
 # =================定存股===================
 def dinchun(stockNumber):
@@ -113,9 +111,7 @@ def dinchun(stockNumber):
     else: 
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
-    average=[]
-    for i in range(1,6):
-        average.append(float(pf[0]['現金殖利率'][i].strip('%')))
+    average=[float(pf[0]['現金殖利率'][i].strip('%') for i in range(1,6)]
     average = sum(average)/5
     if average>6:
         pass_list.append(is_pass)
@@ -162,7 +158,7 @@ def dinchun(stockNumber):
     else: 
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
-    content =str(round(x/5*100)) + '%'
+    content = f'{round(x/5*100)}%'
     return pass_list, content, str(x), color_list
 
 # =================成長股===================
@@ -179,7 +175,7 @@ def growth_stock(stockNumber):
     for i in range(3):
         if float(pf1[0]['營業收入（單位：千元）']['單月年增率'][i].strip('%'))>0:
             count+=1
-    if  count==3:
+    if count==3:
         pass_list.append(is_pass)
         color_list.append(is_pass_color)
         x += 1
@@ -218,8 +214,7 @@ def growth_stock(stockNumber):
     else: 
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
-    content = str(round(x/5*100)) + '%'
-    
+    content = f'{round(x/5*100)}%'
     return pass_list, content, str(x), color_list
 # =================便宜股===================
 def cheap_stock(stockNumber):
@@ -253,5 +248,5 @@ def cheap_stock(stockNumber):
     else: 
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
-    content = str(round(x/3*100)) + '%'
+    content = f'{round(x/3*100)}%'
     return pass_list, content, str(x), color_list
