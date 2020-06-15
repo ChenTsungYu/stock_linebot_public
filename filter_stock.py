@@ -25,7 +25,7 @@ def mine_stock(stockNumber):
     browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     # browser = webdriver.Chrome('./chromedriver') # 本地測試用
     #--------------------------------------------------------------------
-    data_url = "https://www.cmoney.tw/finance/f00042.aspx?s="+ stockNumber +"&o=4"
+    data_url = f"https://www.cmoney.tw/finance/f00042.aspx?s={stockNumber}&o=4"
     browser.get(data_url)
     five_cashflow = browser.find_elements(By.XPATH, "//tbody/tr")
     free_cash = ((five_cashflow[-1].text).split(" "))[1:6]
@@ -54,8 +54,8 @@ def mine_stock(stockNumber):
     else: 
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
-    url1='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=3&st=8'
-    url2 ='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=3&st=7'
+    url1 = f'https://histock.tw/stock/financial.aspx?no={stockNumber}&t=3&st=8'
+    url2 = f'https://histock.tw/stock/financial.aspx?no={stockNumber}&t=3&st=7'
     of=pandas.read_html(url1)
     turnover_page = pandas.read_html(url2)
     cash_ratio = [float(of[0]['營業現金流對淨利比'][i].replace(',','').strip('%')) for i in range(0, 20)]
@@ -78,7 +78,7 @@ def mine_stock(stockNumber):
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
     #---------------------------------------------------------------
-    if  (turnover_page[0]["應收帳款收現天數"][0])<= (turnover_page[0]["應收帳款收現天數"][4]):
+    if  (turnover_page[0]["應收帳款收現天數"][0]) <= (turnover_page[0]["應收帳款收現天數"][4]):
         pass_list.append(is_pass)
         color_list.append(is_pass_color)
         count += 1
@@ -86,7 +86,7 @@ def mine_stock(stockNumber):
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
     #------------------------------------------------------------------
-    if  (turnover_page[0]["存貨週轉天數"][0])<=( turnover_page[0]["存貨週轉天數"][4]):
+    if  (turnover_page[0]["存貨週轉天數"][0]) <= ( turnover_page[0]["存貨週轉天數"][4]):
         pass_list.append(is_pass)
         color_list.append(is_pass_color)
         count += 1
@@ -97,8 +97,8 @@ def mine_stock(stockNumber):
     return pass_list, content, str(count), color_list
 # =================定存股===================
 def dinchun(stockNumber):
-    url='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=2'
-    url2='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=3&st=9'
+    url = f'https://histock.tw/stock/financial.aspx?no={stockNumber}&t=2'
+    url2 = f'https://histock.tw/stock/financial.aspx?no={stockNumber}&t=3&st=9'
     pf=pandas.read_html(url)
     pf1=pandas.read_html(url2)
     x=0 # 計算通過幾項指標
@@ -111,16 +111,16 @@ def dinchun(stockNumber):
     else: 
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
-    average=[float(pf[0]['現金殖利率'][i].strip('%') for i in range(1,6)]
-    average = sum(average)/5
-    if average>6:
+    average= [float(pf[0]['現金殖利率'][i].strip('%') for i in range(1,6)]
+    average = sum(average) / 5
+    if average > 6:
         pass_list.append(is_pass)
         color_list.append(is_pass_color)
         x += 1
     else: 
         pass_list.append(not_pass)
         color_list.append(not_pass_color)
-    z=float(pf1[0]['年度/季別'][0])
+    z = float(pf1[0]['年度/季別'][0])
     c=0
     for m in pf1[0]['年度/季別']:
         if float(m)==z:
@@ -163,8 +163,8 @@ def dinchun(stockNumber):
 
 # =================成長股===================
 def growth_stock(stockNumber):
-    url='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=3'
-    url2='https://histock.tw/stock/financial.aspx?no='+stockNumber
+    url = f'https://histock.tw/stock/financial.aspx?no={stockNumber}&t=3'
+    url2 = f'https://histock.tw/stock/financial.aspx?no={stockNumber}'
     pf=pandas.read_html(url)
     pf1=pandas.read_html(url2)
     # print('股票代號:',stockNumber)
@@ -218,9 +218,9 @@ def growth_stock(stockNumber):
     return pass_list, content, str(x), color_list
 # =================便宜股===================
 def cheap_stock(stockNumber):
-    url='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=6'
-    url2='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=6&st=2'
-    url3='https://histock.tw/stock/financial.aspx?no='+stockNumber+'&t=1'
+    url = f'https://histock.tw/stock/financial.aspx?no={stockNumber}&t=6'
+    url2 = f'https://histock.tw/stock/financial.aspx?no={stockNumber}&t=6&st=2'
+    url3 = f'https://histock.tw/stock/financial.aspx?no={stockNumber}&t=1'
     pf=pandas.read_html(url)
     pf1=pandas.read_html(url2)
     pf2=pandas.read_html(url3)
