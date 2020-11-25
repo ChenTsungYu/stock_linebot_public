@@ -36,13 +36,13 @@ def getCurrencyName(currency):
     except: return "無可支援的外幣"
     return currency_name
 # 外幣兌換
-def exchange_currency(msg):
-    condition = msg[0:2] # 買入或賣出
-    msg = msg.strip(msg[0:4])
-    currency = msg[0:3] # 外幣代號
+def exchange_currency(code) :
+    condition = code[0:2] # 買入或賣出
+    code = code.strip(code[0:4])
+    currency = code[0:3] # 外幣代號
     currency_name = getCurrencyName(currency)
     if currency_name == "無可支援的外幣": return "無可支援的外幣"
-    amount = float(msg[3:])
+    amount = float(code[3:])
     currency = twder.now(currency) 
     now_time = str(currency[0]) # 當下時間
     content = currency_name + "最新掛牌時間為: " + now_time
@@ -55,45 +55,39 @@ def exchange_currency(msg):
         sold_spot = "無資料" if  currency[4] == '-' else float(currency[4]) # if-else簡寫
         if sold_spot == "無資料": return "此外幣無即期賣出匯率"
         outcome = str( '%.2f ' % (amount * sold_spot))
-        content +=  '\n即期賣出價格: ' + str(sold_spot)
+        content +=  f'\n即期賣出價格: {sold_spot}'
 
-    content += "\n換匯結果為台幣" + outcome + "元"
+    content += f"\n換匯結果為台幣 {outcome}元"
     return content
 
-# msg = "買入外幣IDR100"
-# msg = "賣出外幣USD100"
-# print(exchange_currency(msg))
-
 # 查詢匯率
-def showCurrency(msg): # msg為外幣代碼
+def showCurrency(code) -> "JPY": # code 為外幣代碼
     content = ""
-    currency_name = getCurrencyName(msg)
+    currency_name = getCurrencyName(code)
     if currency_name == "無可支援的外幣": return "無可支援的外幣"
     # 資料格式 {貨幣代碼: (時間, 現金買入, 現金賣出, 即期買入, 即期賣出), ...}
-    currency = twder.now(msg) 
+    currency = twder.now(code) 
     # 當下時間
     now_time = str(currency[0])
     # 銀行現金買入價格
-    buying_cash = "無資料" if  currency[1] == '-' else str(float(currency[1])) 
+    buying_cash = "無資料" if currency[1] == '-' else str(float(currency[1])) 
     # 銀行現金賣出價格
-    sold_cash = "無資料" if  currency[2] == '-' else str(float(currency[2])) 
+    sold_cash = "無資料" if currency[2] == '-' else str(float(currency[2])) 
     # 銀行即期買入價格
-    buying_spot = "無資料" if  currency[3] == '-' else str(float(currency[3])) 
+    buying_spot = "無資料" if currency[3] == '-' else str(float(currency[3])) 
     # 銀行即期賣出價格
-    sold_spot = "無資料" if  currency[4] == '-' else str(float(currency[4])) 
+    sold_spot = "無資料" if currency[4] == '-' else str(float(currency[4])) 
 
-    content += currency_name + "最新掛牌時間為: " + now_time + '\n ---------- \n 現金買入價格: ' + buying_cash + '\n 現金賣出價格: ' + str(sold_cash) + '\n 即期買入價格: ' + buying_spot + '\n 即期賣出價格: '  +  sold_spot + '\n \n'
+    content +=  f"{currency_name} 最新掛牌時間為: {now_time}\n ---------- \n 現金買入價格: {buying_cash}\n 現金賣出價格: {sold_cash}\n 即期買入價格: {buying_spot}\n 即期賣出價格: {sold_spot}\n \n'
     return content
     
-# msg = "JPY"
-# print(showCurrency(msg))
 ##--------------------------------------------
 #######     走勢圖
 #   即期匯率
-def spot_exrate_sixMonth(msg2):
-    currency_name = getCurrencyName(msg2)# 取得對應的貨幣名稱
+def spot_exrate_sixMonth(code2):
+    currency_name = getCurrencyName(code2)# 取得對應的貨幣名稱
     if currency_name == "無可支援的外幣": return "無可支援的外幣"
-    dfs = pd.read_html('https://rate.bot.com.tw/xrt/quote/l6m/' + msg2)
+    dfs = pd.read_html(f'https://rate.bot.com.tw/xrt/quote/l6m/{code2}')
     currency = dfs[0].iloc[:, 0:6] # 獲取前6個欄位
     # 更改欄位名稱
     currency.columns = [u'Date', u'Currency', u'現金買入', u'現金賣出', u'即期買入',  u'即期賣出']
@@ -103,17 +97,17 @@ def spot_exrate_sixMonth(msg2):
         return "即期匯率無資料可分析"
     currency.plot(kind = 'line', figsize=(12, 6),x='Date', y=[u'即期買入', u'即期賣出'])
     plt.legend(prop=chinese_font) # 支援中文字
-    plt.title(currency_name + " 即期匯率",  fontsize=20, fontproperties=chinese_font)
-    plt.savefig(msg2 + ".png")
+    plt.title(f"{currency_name} 即期匯率",  fontsize=20, fontproperties=chinese_font)
+    plt.savefig(f"{code2}.png")
     plt.show()
     plt.close()
-    return Imgur.showImgur(msg2)
+    return Imgur.showImgur(code2)
 
 #  現金匯率
-def cash_exrate_sixMonth(msg1):
-    currency_name = getCurrencyName(msg1)# 取得對應的貨幣名稱
+def cash_exrate_sixMonth(code1) -> "USA":
+    currency_name = getCurrencyName(code1)# 取得對應的貨幣名稱
     if currency_name == "無可支援的外幣": return "無可支援的外幣"
-    dfs = pd.read_html('https://rate.bot.com.tw/xrt/quote/l6m/' + msg1)
+    dfs = pd.read_html(f'https://rate.bot.com.tw/xrt/quote/l6m/{code1}')
     currency = dfs[0].iloc[:, 0:6]
     # 更改欄位名稱
     currency.columns = [u'Date', u'Currency', u'現金買入', u'現金賣出', u'即期買入',  u'即期賣出']
@@ -124,14 +118,13 @@ def cash_exrate_sixMonth(msg1):
     currency.plot(kind = 'line', figsize=(12, 6), x='Date', y=[u'現金買入', u'現金賣出'])
     plt.legend(prop=chinese_font) # 支援中文字
     plt.title(currency_name + " 現金匯率",  fontsize=20, fontproperties=chinese_font)
-    plt.savefig(msg1 + ".png")
+    plt.savefig(f"{code1}.png")
     plt.show()
     plt.close()
-    return Imgur.showImgur(msg1)
-# msg1 = "USA"
-# print(cash_exrate_sixMonth(msg1))
-# msg2 = "JPA"
-# print(spot_exrate_sixMonth(msg2))
+    return Imgur.showImgur(code1)
+
+# print(cash_exrate_sixMonth(code1))
+
 
 def get_currency_list():
     currency_list = twder.now_all()
@@ -140,15 +133,18 @@ def get_currency_list():
     for i in range(len(currency_list)):
         currencies.append(currency_list[i][4])
     return currencies
-# get_currency_list()
 
 '''
+補充：
 Coninbase提供的endpoint，不需API Key，不過只有查詢即時匯率的功能，
 若要其他功能，需要API Key，教學參考HackMD文件鏈結，有官方教學
 '''
-# 範例指令: usd/twd
-# msg = "換匯USD/TWD/100"
 def getExchangeRate(msg): # 不同貨幣直接換算(非只限於台幣)
+    """
+    sample
+    code = '換匯USD/TWD/100;
+    code = '換匯USD/JPY/100'
+    """
     currency_list = msg[2:].split("/")
     currency = currency_list[0] # 輸入想查詢的匯率
     currency1 = currency_list[1] # 輸入想兌換的匯率
@@ -157,20 +153,7 @@ def getExchangeRate(msg): # 不同貨幣直接換算(非只限於台幣)
     res = requests.get(url_coinbase)
     jData = res.json()
     pd_currency = jData['data']['rates']
-    content = '目前的兌換率為: ' + pd_currency[currency1] + " " +currency1+'\n查詢的金額為: '
+    content = f'目前的兌換率為:{pd_currency[currency1]} {currency1} \n查詢的金額為: '
     amount =  float(pd_currency[currency1]) 
     content += str('%.2f' % (amount * float(money_value))) + " " +currency1
     return content
-# 範例指令: usd/twd
-# msg = "換匯USD/TWD/100"
-# msg = "換匯USD/JPY/100"
-# print(getExchangeRate(msg)) 
-# currency = str(input("請輸入想查詢的匯率: "))
-# currency1 = str(input("請輸入想兌換的匯率: "))
-# money_value = eval(input("請輸入金額數值: "))
-# currency = currency.upper()
-# currency1 = currency1.upper()
-
-# # getExchangeRate(currency,currency1,money_value)
-# # print(currency,currency1)
-# getExchangeRate(currency,currency1)
