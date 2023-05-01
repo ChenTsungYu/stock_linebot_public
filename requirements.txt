@@ -1,5 +1,5 @@
 line-bot-sdk==1.8.0
-flask==1.1.1
+flask==2.3.2
 gunicorn
 pymongo
 imgurpython==1.1.7
