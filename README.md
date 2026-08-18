@@ -1,3 +1,5 @@
+
+
 # 股票&外匯機器人
 ## Introduction:
 使用python搭配flask框架，透過Heroku免費雲端主機串接LineBot，資料庫使用MongoDB 
@@ -8,6 +10,7 @@
 * yfinance
 * talib
 * Heroku
+* linebot(Line Bot)
 ## Note:
 * talib: 
 目錄底下的talib套件用於技術分析，只能在本地測試，若要部署上Heroku，則需要在Heroku的環境安裝talib。
